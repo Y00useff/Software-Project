@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+HOTELIVA | Home
+{% endblock %}
+{% block body %}
+<div class="row mt-3 p-3 mb-5">
+    <h2 class="mb-4">Search Your Hotels</h2>
+    <div class="col-md-12 search-container p-3">
+        <form method="POST" action="{% url 'search' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-12 x">
+                    <label for="loc" class="form-label">City or Location</label>
+                    <input type="text" class="form-control search-input" id="loc" name="loc"
+                        placeholder="Cairo, Giza..." required>
+                </div>
+                <div class="mt-4 p-2" style="margin-left: 42%;">
+                    <button type="submit" class="btn btn-primary search-button">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<br>
+<hr>
+<div class="row mt-3 p-3 ">
+    <a href="#carouselIndicators" style="text-decoration: none; color: black;">
+        <h4 style="margin-left: 50px;"><b>Top-Rated Hotels</b></h4>
+    </a>
+    <div id="carouselIndicators" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active p-5">
+                <div class="row">
+                    {% for x in first_three_hotels %}
+                    <div class="col-md-4">
+                        <div class="card" style="width: 100%;">
+                            <img src="{{x.image.url}}" class="card-img-top" alt="image" width="100%" height="250px">
+                            <div class="card-body box">
+                                <h5 class="card-title">{{x.hotel_name}}</h5>
+                                <p class="card-text"> EGP {{x.price}} / Per Night</p>
+                                <p class="card-text">{{x.category}} <i class="bi bi-star"></i></p>
+                                <p class="card-text"><i class="bi bi-geo-alt"></i> {{x.location}}</p>
+                                <a href="/viewRoom/{{x.hotel_id}}" class="btn btn-primary">View Rooms</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="carousel-item p-5">
+                <div class="row">
+                    {% for x in next_three_hotels %}
+                    <div class="col-md-4">
+                        <div class="card" style="width: 100%;">
+                            <img src="{{x.image.url}}" class="card-img-top" alt="image" width="100%" height="250px">
+                            <div class="card-body box">
+                                <h5 class="card-title">{{x.hotel_name}}</h5>
+                                <p class="card-text"> EGP {{x.price}} / Per Night</p>
+                                <p class="card-text">{{x.category}} <i class="bi bi-star"></i></p>
+                                <p class="card-text"><i class="bi bi-geo-alt"></i> {{x.location}}</p>
+                                <a href="/viewRoom/{{x.hotel_id}}" class="btn btn-primary">View Rooms</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<hr>
+<div class="row mt-3 p-3">
+    <a href="#carouselIndicators1" style="text-decoration: none; color: black;">
+        <h4 style="margin-left: 50px;"><b>Popular Searches</b></h4>
+    </a>
+    <!-- data-bs-ride="carousel" -->
+        <div class="carousel-inner">
+            <div class="carousel-item active p-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card-body box" style="width: 100%;">
+                            <img src="static/images/mumbaihotel.jpg." alt="image" width="100%" height="250px">
+                            <div class="overlay-text">CAIRO</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-body box" style="width: 100%;">
+                            <img src="static/images/jaipurhotel.webp." alt="image" width="100%" height="250px">
+                            <div class="overlay-text">GIZA</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-body box" style="width: 100%;">
+                            <img src="static/images/udaipurhotel.jpg." alt="image" width="100%" height="250px">
+                            <div class="overlay-text">ALEX</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item p-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card-body box" style="width: 100%;">
+                            <img src="static/images/hotel-delhi.jpg." alt="image" width="100%" height="250px">
+                            <div class="overlay-text">ASYUT</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-body box" style="width: 100%;">
+                            <img src="static/images/Hotels-Mahabaleshwar.webp." alt="image" width="100%" height="250px">
+                            <div class="overlay-text">ASYUT</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-body box" style="width: 100%;">
+                            <img src="static/images/Bangalore-Hotel.webp." alt="image" width="100%" height="250px">
+                            <div class="overlay-text">Asyut</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators1" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators1" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+{% endblock %}
