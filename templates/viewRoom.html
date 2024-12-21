@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+HOTELIVA | Rooms
+{% endblock %}
+{% block body %}
+<div class="col-md-12  mt-5 ">
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for x in gallery %}
+            <div class="carousel-item active">
+                <img src="{{x.imagegallery.url}}" class="d-block w-100" alt="" height="350px">
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3 mt-4 p-3 filter">
+        <h5>Filter by Category</h5>
+        <hr>
+        <a href="/viewRoom/{{hotels.hotel_id}}">All</a><br>
+        <a href="/aclist/{{hotels.hotel_id}}">AC</a><br>
+        <a href="/nonaclist/{{hotels.hotel_id}}">Non-AC </a><br>
+        <a href="/kingroomlist/{{hotels.hotel_id}}">King</a><br>
+        <a href="/queenroomlist/{{hotels.hotel_id}}">Queen</a><br>
+        <a href="/singleroomlist/{{hotels.hotel_id}}">Single</a><br>
+        <a href="/twinroomlist/{{hotels.hotel_id}}">Twin</a><br>
+        <a href="/doubleroomlist/{{hotels.hotel_id}}">Double </a><br>
+        <a href="/doubledoubleroomlist/{{hotels.hotel_id}}">Double-Double</a>
+        <br><br><br>
+        <h5>Filter by Price</h5>
+        <hr>
+        <form method="POST" action="{% url 'range' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="Input1" class="form-label">Minimum</label>
+                <input type="text" class="form-control" name="min" id="Input1">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInput2" class="form-label">Maximum</label>
+                <input type="text" class="form-control" name="max" id="exampleInput2">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <br><br>
+        <h5>Sort by Price</h5>
+        <hr>
+        <a href="/descpriceOrder/{{hotels.hotel_id}}">High to Low</a><br>
+        <a href="/priceOrder/{{hotels.hotel_id}}">Low to High</a>
+    </div>
+    <div class="col-md-9 mt-4 p-3">
+        <div class="row">
+
+            {% for x in rooms %}
+            <div class="col-md-4 mb-4">
+                <div class="card" style="width: 100%; margin: 0px;">
+                    <img src="{{x.roomImage.url}}" class="card-img-top" alt="image" width="100%" height="250px">
+                    <div class="card-body">
+                        <h5 class="card-title">{{x.room_name}}</h5>
+                        <p class="card-text"><small>For {{x.max_capacity}} Guest</small></p>
+                        <p class="card-text">{{x.ac_room}} </p>
+                        <p class="card-text"><b>EGP {{x.room_price}}</b> / Per Night</p>
+                        {{x.room_id}}
+                        <a href="/check_room_availability/{{x.room_id}}" class="btn btn-primary w-100">Book Room</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}
